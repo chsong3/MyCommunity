@@ -49,16 +49,17 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
             <hr>
-            <div class="media">
+            <div class="media" th:each="questionitem : ${questionItems}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded" style="width:38px;height:38px" src="https://avatars3.githubusercontent.com/u/53107008?v=4">
+                        <img class="media-object img-rounded" th:src="${questionitem.user.avatarUrl}" style="width:38px;height:38px">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h3 class="media-heading">怎么学会法拉上的飞机啊收购价怕是</h3>
-                    房间大送风机奥斯丁金佛案件佛文件哦我金融危机哦<br>
-                    <span style="font-size:12px;font-weight:normal;color:#999">2 个回复 · 31 次浏览 · 1 小时前</span>
+                    <h3 class="media-heading"><span th:text="${questionitem.title}"></span></h3>
+                    <span th:text="${questionitem.description}"></span>
+                    <br>
+                    <span style="font-size:12px;font-weight:normal;color:#999"><span th:text="${questionitem.commentCount}"></span> 个回复 · <span th:text="${questionitem.viewCount}"></span> 次浏览 · <span th:text="${#dates.format(questionitem.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span></span>
                 </div>
             </div>
         </div>
