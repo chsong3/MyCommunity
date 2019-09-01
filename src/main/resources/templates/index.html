@@ -1,66 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>cs.blog</title>
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
-    <script src="bootstrap-3.3.7-dist/js/bootstrap.js" type="javascript"></script>
+<head th:insert="~{import :: head}">
+    <title>首页</title>
 </head>
 <body style="background-color: #efefef">
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-<!--            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
-<!--                <span class="sr-only">麻将社区</span>-->
-<!--            </button>-->
-            <a class="navbar-brand" href="#">博客</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索话题">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user!=null}">
-                    <a href="/publish">发布</a>
-                </li>
-                <li class="dropdown" th:if="${session.user!=null}">
-                    <a href="#" th:text="${session.user.getName()}"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">消息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-                <li th:if="${session.user==null}"><a href="http://github.com/login/oauth/authorize?client_id=Iv1.17c11c00c1e1f800&
-                redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{nav :: nav}"></div>
 <div class="container-fluid" style="margin: 30px;background-color:white">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
             <hr>
-            <div class="media" th:each="questionitem : ${questionItems}">
+            <div class="media" th:each="question:${pageInfo.list}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded" th:src="${questionitem.user.avatarUrl}" style="width:38px;height:38px">
+                        <img class="media-object img-rounded" th:src="${question.user.avatarUrl}" style="width:38px;height:38px">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h3 class="media-heading"><span th:text="${questionitem.title}"></span></h3>
-                    <span th:text="${questionitem.description}"></span>
+                    <h3 class="media-heading"><span th:text="${question.title}"></span></h3>
+                    <span th:text="${question.description}"></span>
                     <br>
-                    <span style="font-size:12px;font-weight:normal;color:#999"><span th:text="${questionitem.commentCount}"></span> 个回复 · <span th:text="${questionitem.viewCount}"></span> 次浏览 · <span th:text="${#dates.format(questionitem.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                    <span style="font-size:12px;font-weight:normal;color:#999"><span th:text="${question.commentCount}"></span> 个回复 · <span th:text="${question.viewCount}"></span> 次浏览 · <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span></span>
                 </div>
+            </div>
+            <div style="margin-left:600px">
+                <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+                <a th:href="@{/}">首页</a>
+                <a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+                <a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                <a th:href="@{/(pageNum=${pageInfo.pages})}">尾页</a>
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

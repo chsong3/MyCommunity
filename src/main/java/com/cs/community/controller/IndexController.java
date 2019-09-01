@@ -5,6 +5,8 @@ import com.cs.community.mapper.UserMapper;
 import com.cs.community.model.User;
 import com.cs.community.service.QuestionService;
 import com.cs.community.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,22 +29,12 @@ public class IndexController {
     QuestionService questionService;
 
     @GetMapping("/")
-    public String index(HttpServletRequest request,Model model) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null&&cookies.length!=0){
-            for (Cookie cookie:cookies){
-                if (cookie.getName().equals("token")){
-                    String token=cookie.getValue();
-                    User user=userService.findByToken(token);
-                    if (user!=null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                }
-            }
-        }
-
+    public String index(HttpServletRequest request,Model model,
+                        @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum) {
+        PageHelper.startPage(pageNum,5);
         List<QuestionDTO> questionItems=questionService.findAllQuestionItems();
-        model.addAttribute("questionItems",questionItems);
+        PageInfo<QuestionDTO> pageInfo=new PageInfo<QuestionDTO>(questionItems);
+        model.addAttribute("pageInfo",pageInfo);
         return "index";
     }
 }

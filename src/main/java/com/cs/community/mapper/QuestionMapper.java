@@ -16,4 +16,7 @@ public interface QuestionMapper {
 
     @Select("select *from question")
     List<QuestionDTO> selectAll();
+
+    @Select("select *from question where creator=#{id} group by gmt_create desc")
+    List<QuestionDTO> selectQuestionByUserId(Long id);
 }

@@ -36,4 +36,9 @@ public class QuestionServiceImpl implements QuestionService {
 
         return questionItems;
     }
+
+    @Override
+    public List<QuestionDTO> findQuestionByUserId(Long id) {
+        return questionMapper.selectQuestionByUserId(id);
+    }
 }

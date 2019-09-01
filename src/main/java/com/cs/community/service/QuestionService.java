@@ -9,4 +9,6 @@ public interface QuestionService {
     void create(Question question);
 
     List<QuestionDTO> findAllQuestionItems();
+
+    List<QuestionDTO> findQuestionByUserId(Long id);
 }
