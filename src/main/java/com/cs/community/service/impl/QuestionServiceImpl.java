@@ -41,4 +41,11 @@ public class QuestionServiceImpl implements QuestionService {
     public List<QuestionDTO> findQuestionByUserId(Long id) {
         return questionMapper.selectQuestionByUserId(id);
     }
+
+    @Override
+    public QuestionDTO findQuestionById(Integer id) {
+        QuestionDTO questionDTO = questionMapper.selectQuestionById(id);
+        questionDTO.setUser(userMapper.findUserById(questionDTO.getCreator()));
+        return questionDTO;
+    }
 }

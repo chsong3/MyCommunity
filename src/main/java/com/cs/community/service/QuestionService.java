@@ -11,4 +11,6 @@ public interface QuestionService {
     List<QuestionDTO> findAllQuestionItems();
 
     List<QuestionDTO> findQuestionByUserId(Long id);
+
+    QuestionDTO findQuestionById(Integer id);
 }

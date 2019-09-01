@@ -46,9 +46,10 @@ public class ProfileController {
         }
         Long id = user.getId();
         List<QuestionDTO>  questionList=questionService.findQuestionByUserId(id);
-        PageHelper.startPage(pageNum,5);
-        PageInfo<QuestionDTO> pageInfo=new PageInfo<QuestionDTO>(questionList);
-        model.addAttribute("pageInfo",pageInfo);
+        //PageHelper.startPage(pageNum,5);
+        //PageInfo<QuestionDTO> pageInfo=new PageInfo<QuestionDTO>();
+        //pageInfo.setList(questionList);
+        model.addAttribute("questionList",questionList);
         return "profile";
     }
 

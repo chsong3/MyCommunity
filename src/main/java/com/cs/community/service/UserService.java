@@ -6,4 +6,6 @@ public interface UserService {
     User findByToken(String token);
 
     void insert(User user);
+
+    void createOrUpdate(User user);
 }

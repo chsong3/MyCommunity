@@ -46,15 +46,15 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if (githubUser != null && githubUser.getId() != null) {
+            String accountId=String.valueOf(githubUser.getId());
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setName(githubUser.getName());
-            user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
+            user.setAccountId(accountId);
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userService.insert(user);
+            userService.createOrUpdate(user);
+
             Cookie cookie = new Cookie("token", token);
             cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
             response.addCookie(cookie);
@@ -63,5 +63,20 @@ public class AuthorizeController {
             // 登录失败，重新登录
             return "redirect:/";
         }
+    }
+
+    /**
+     * 退出登录
+     * @param request
+     * @param response
+     * @return
+     */
+    @GetMapping("/loginout")
+    public String logOut(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().removeAttribute("user");//删除session
+        Cookie cookie = new Cookie("token", null);//删除cookie
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

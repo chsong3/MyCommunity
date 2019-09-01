@@ -10,10 +10,10 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span th:text="${sectionName}"></span></h2>
             <hr>
-            <div class="media" th:each="question:${pageInfo.list}">
+            <div class="media" th:each="question:${questionList}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded" th:src="${question.user.avatarUrl}" style="width:38px;height:38px">
+                        <img class="media-object img-rounded" th:src="${session.user.avatarUrl}" style="width:38px;height:38px">
                     </a>
                 </div>
                 <div class="media-body">
@@ -23,13 +23,13 @@
                     <span style="font-size:12px;font-weight:normal;color:#999"><span th:text="${question.commentCount}"></span> 个回复 · <span th:text="${question.viewCount}"></span> 次浏览 · <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span></span>
                 </div>
             </div>
-            <div style="margin-left:600px">
-                <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
-                <a th:href="@{/}">首页</a>
-                <a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
-                <a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
-                <a th:href="@{/(pageNum=${pageInfo.pages})}">尾页</a>
-            </div>
+<!--            <div style="margin-left:600px">-->
+<!--                <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>-->
+<!--                <a th:href="@{/}">首页</a>-->
+<!--                <a th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>-->
+<!--                <a th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>-->
+<!--                <a th:href="@{/(pageNum=${pageInfo.pages})}">尾页</a>-->
+<!--            </div>-->
         </div>
         <div style="margin-top:10px" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="list-group">

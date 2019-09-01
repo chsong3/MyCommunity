@@ -1,9 +1,7 @@
 package com.cs.community.mapper;
 
 import com.cs.community.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -16,5 +14,11 @@ public interface UserMapper {
     User findByToken(String token);
     //通过accountId查找user
     @Select("select * from user where id=#{creator}")
-    User findUserById(String creator);
+    User findUserById(Long creator);
+
+    @Select("select * from user where account_id=#{accountId}")
+    User findUserByAccountId(@Param("accountId") String accountId);
+
+    @Update("update user set name=#{name},token=#{token},gmt_modified=#{gmtModified},avatar_url=#{avatarUrl} where account_id=#{accountId}")
+    void updateUser(User user);
 }
