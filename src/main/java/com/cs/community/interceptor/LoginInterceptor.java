@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 登录拦截
@@ -25,9 +26,9 @@ public class LoginInterceptor implements HandlerInterceptor {
             for (Cookie cookie:cookies){
                 if (cookie.getName().equals("token")){
                     String token=cookie.getValue();
-                    User user=userService.findByToken(token);
-                    if (user!=null){
-                        request.getSession().setAttribute("user",user);
+                    List<User> user=userService.findByToken(token);
+                    if (user.size()!=0){
+                        request.getSession().setAttribute("user",user.get(0));
                     }
                     break;
                 }

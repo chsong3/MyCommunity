@@ -2,8 +2,10 @@ package com.cs.community.service;
 
 import com.cs.community.model.User;
 
+import java.util.List;
+
 public interface UserService {
-    User findByToken(String token);
+    List<User> findByToken(String token);
 
     void insert(User user);
 

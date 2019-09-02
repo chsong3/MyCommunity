@@ -10,7 +10,9 @@ public interface QuestionService {
 
     List<QuestionDTO> findAllQuestionItems();
 
-    List<QuestionDTO> findQuestionByUserId(Long id);
+    List<Question> findQuestionByUserId(Integer id);
 
     QuestionDTO findQuestionById(Integer id);
+
+    void createOrUpdate(Question question);
 }
