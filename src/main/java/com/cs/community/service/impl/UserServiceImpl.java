@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
             //如果数据库存在该用户，则更新
             user.setGmtModified(System.currentTimeMillis());
             UserExample userExample1=new UserExample();
-            userExample.createCriteria().andIdEqualTo(user.getId());
+            userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
             userMapper.updateByExampleSelective(user,userExample);//此方法只更新值不为空的数据
         }
     }

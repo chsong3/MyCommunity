@@ -51,10 +51,11 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionDTO findQuestionById(Integer id) {
-        Question questionDTO = questionMapper.selectByPrimaryKey(id);
-        QuestionDTO questionDTO1 = new QuestionDTO();
-        questionDTO1.setUser(userMapper.selectByPrimaryKey(questionDTO.getCreator()));
-        return questionDTO1;
+        Question question = questionMapper.selectByPrimaryKey(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        questionDTO.setUser(userMapper.selectByPrimaryKey(question.getCreator()));
+        return questionDTO;
     }
 
     @Override
@@ -67,7 +68,8 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             //更新问题
             question.setGmtModified(System.currentTimeMillis());
-            questionMapper.updateByExampleSelective(question, new QuestionExample());
+            questionMapper.updateByPrimaryKeySelective(question);
+            //questionMapper.updateByExampleSelective(question, new QuestionExample());
         }
     }
 }
