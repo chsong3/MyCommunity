@@ -1,6 +1,8 @@
 package com.cs.community.service.impl;
 
 import com.cs.community.dto.QuestionDTO;
+import com.cs.community.exception.CustomizeErroCodeImpl;
+import com.cs.community.exception.CustomizeException;
 import com.cs.community.mapper.QuestionMapper;
 import com.cs.community.mapper.UserMapper;
 import com.cs.community.model.Question;
@@ -52,6 +54,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDTO findQuestionById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question==null){
+            throw new CustomizeException(CustomizeErroCodeImpl.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         questionDTO.setUser(userMapper.selectByPrimaryKey(question.getCreator()));
@@ -68,7 +73,10 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             //更新问题
             question.setGmtModified(System.currentTimeMillis());
-            questionMapper.updateByPrimaryKeySelective(question);
+            int update = questionMapper.updateByPrimaryKeySelective(question);
+            if (update!=1){
+                throw new CustomizeException(CustomizeErroCodeImpl.QUESTION_NOT_FOUND);
+            }
             //questionMapper.updateByExampleSelective(question, new QuestionExample());
         }
     }

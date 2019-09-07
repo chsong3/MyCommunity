@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{import :: head}">
+    <title>错误</title>
+</head>
+<body style="background-color: #efefef">
+<div th:insert="~{nav :: nav}"></div>
+<div class="jumbotron" style="margin: 50px 50px">
+    <h1>sorry，出错啦！</h1>
+    <p th:text="${message}">服务器异常</p>
+    <p><a class="btn btn-primary btn-lg" href="/" role="button">回到首页</a></p>
+</div>
+</body>
+</html>
