@@ -3,6 +3,7 @@ package com.cs.community.service.impl;
 import com.cs.community.dto.QuestionDTO;
 import com.cs.community.exception.CustomizeErroCodeImpl;
 import com.cs.community.exception.CustomizeException;
+import com.cs.community.mapper.QuestionExtensionMapper;
 import com.cs.community.mapper.QuestionMapper;
 import com.cs.community.mapper.UserMapper;
 import com.cs.community.model.Question;
@@ -23,6 +24,8 @@ public class QuestionServiceImpl implements QuestionService {
     QuestionMapper questionMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    QuestionExtensionMapper questionExtensionMapper;
 
     @Override
     public void create(Question question) {
@@ -79,5 +82,10 @@ public class QuestionServiceImpl implements QuestionService {
             }
             //questionMapper.updateByExampleSelective(question, new QuestionExample());
         }
+    }
+
+    @Override
+    public void increaseViewCount(Integer id) {
+        questionExtensionMapper.updateViewCount(id);
     }
 }

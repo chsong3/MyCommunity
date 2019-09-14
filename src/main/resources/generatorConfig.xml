@@ -5,30 +5,30 @@
 
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/myblog"
-                        userId="root"
-                        password="root">
+        <jdbcConnection driverClass=" com.ibm.db2.jcc.DB2Driver"
+                        connectionURL="jdbc:db2://10.189.11.152:50000/qtdb"
+                        userId="CQCRM"
+                        password="123456">
         </jdbcConnection>
 
         <javaTypeResolver >
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.cs.community.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.cs.community.model.efficiency" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mapper.efficiency"  targetProject="src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cs.community.mapper"  targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cs.community.mapper.efficiency"  targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="question" domainObjectName="Question" >
+        <table tableName="DW_AUTHORS_BENCHMARKING_2019" domainObjectName="efficiency" >
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
 <!--            <columnOverride column="DATE_FIELD" property="startDate" />-->

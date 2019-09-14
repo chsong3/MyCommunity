@@ -22,6 +22,10 @@ public class QuestionController {
     public String question(@PathVariable(name = "id") Integer id,
                            Model model, HttpServletRequest request){
         QuestionDTO questionDTO=questionService.findQuestionById(id);
+
+        //增加访问量
+        questionService.increaseViewCount(id);
+
         model.addAttribute("questionDTO",questionDTO);
         return "question";
     }

@@ -15,4 +15,6 @@ public interface QuestionService {
     QuestionDTO findQuestionById(Integer id);
 
     void createOrUpdate(Question question);
+
+    void increaseViewCount(Integer id);
 }
