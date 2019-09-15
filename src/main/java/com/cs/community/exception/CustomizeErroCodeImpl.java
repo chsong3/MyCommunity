@@ -22,11 +22,11 @@ public enum CustomizeErroCodeImpl implements CustomizeErroCode {
 
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 
     @Override
     public Integer getCode() {
-        return null;
+        return code;
     }
 }

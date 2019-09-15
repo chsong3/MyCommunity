@@ -12,6 +12,7 @@ import com.cs.community.model.Question;
 import com.cs.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.naming.ldap.PagedResultsControl;
 
@@ -28,6 +29,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     QuestionExtensionMapper questionExtensionMapper;
     @Override
+    @Transactional
     public void addComment(Comment comment) {
         if (comment.getParentId()==null || comment.getParentId()==0){
             throw new CustomizeException(CustomizeErroCodeImpl.TARGET_PARAM_NOT_FOUND);
@@ -45,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
             }
         }else {
             //回复问题
-            Question question=questionMapper.selectByPrimaryKey(Math.toIntExact(comment.getParentId()));
+            Question question=questionMapper.selectByPrimaryKey(comment.getParentId());
             if (question==null){
                 throw new CustomizeException(CustomizeErroCodeImpl.QUESTION_NOT_FOUND);
             }else {
