@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findUserById(Integer commentator) {
+        return userMapper.selectByPrimaryKey(commentator);
+    }
+
 }

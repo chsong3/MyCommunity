@@ -10,4 +10,6 @@ public interface UserService {
     void insert(User user);
 
     void createOrUpdate(User user);
+
+    User findUserById(Integer commentator);
 }

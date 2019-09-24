@@ -33,6 +33,9 @@ public class CommentController {
         if (user==null){
             return ResultDTO.errorOf(CustomizeErroCodeImpl.NO_LOGIN);
         }
+        if (commentDTO==null || commentDTO.getContent()==null || commentDTO.getContent().equals("")){
+            return ResultDTO.errorOf(CustomizeErroCodeImpl.CONTENT_ISEMPTY);
+        }
         Comment comment=new Comment();
         BeanUtils.copyProperties(commentDTO,comment);
         comment.setCommentator(user.getId());

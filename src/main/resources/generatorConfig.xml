@@ -5,10 +5,10 @@
 
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/myblog"
-                        userId="root"
-                        password="root">
+        <jdbcConnection driverClass="com.ibm.db2.jcc.DB2Driver"
+                        connectionURL="jdbc:db2://10.189.11.152:50000/qtdb"
+                        userId="CQCRM"
+                        password="123456">
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -28,7 +28,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="comment" domainObjectName="Comment" >
+        <table tableName="comment" domainObjectName="BusinessTableFour" >
             <!--            <property name="useActualColumnNames" value="false"/>-->
             <!--            <generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
             <!--            <columnOverride column="DATE_FIELD" property="startDate" />-->

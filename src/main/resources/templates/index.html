@@ -3,6 +3,15 @@
 <head th:insert="~{import :: head}">
     <title>首页</title>
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var closable = window.localStorage.getItem("closable");
+        if (closable=="true"){
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    }
+</script>
 <body style="background-color: #efefef">
 <div th:insert="~{nav :: nav}"></div>
 <div class="container-fluid" style="margin: 30px;background-color:white">
